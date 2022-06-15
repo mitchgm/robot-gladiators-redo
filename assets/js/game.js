@@ -32,6 +32,41 @@ var randomNumber = function(min, max) {
 }
 // math floor makes the number round down, math random gives us a decimal numnber. Then multiplies by 21 and adds 40 to give each roboto a random health number at minimum of 40. Maximum of 60.
 
+var fightOrSkip = function() {
+    // ask player if they'd like to fight or skip using fightOrSkip function
+    var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+  
+  // Conditional Recursive Function Call
+if (promptFight === "" || promptFight === null) {
+    window.alert("You need to provide a valid answer! Please try again.");
+    return fightOrSkip();
+  }
+  
+    promptFight = promptFight.toLocaleLowerCase();
+    // if player picks "skip" confirm and then stop the loop
+    if (promptFight === "skip") {
+      // confirm player wants to skip
+      var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+  
+      // if yes (true), leave fight
+      if (confirmSkip) {
+        window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+        // subtract money from playerMoney for skipping, but don't let them go into the negative
+        playerInfo.money = Math.max(0, playerInfo.money - 10);
+            
+        // return true if player wants to leave
+        return true;
+      
+      
+      }
+      
+        
+      
+        
+    }
+    return false;
+  };
+
 
 
 var fight = function(enemy) {
@@ -46,30 +81,13 @@ var fight = function(enemy) {
     
 
 
-         if (promptFight === "skip" || promptFight === "SKIP"){ // big if start
-            // confirm the player wants to skip
-            var confirmSkip = window.confirm("Are you sure you want to quit?");
-
-            // if yes (true), leave fight
-            if (confirmSkip) {
-                window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
-                //subtract money
-                playerInfo.money = Math.max(0, playerInfo.money - 2);
-                console.log("playerInfo.money", playerInfo.money);
-                break;
+         // repeat and execute as long as the enemy-robot is alive 
+         while (playerInfo.health > 0 && enemy.health > 0) {
+            // ask player if they'd like to fight or skip using fightOrSkip function
+            if (fightOrSkip()) {
+              // if true, leave fight by breaking loop
+              break;
             }
-            // if no (false), as again by running the fight function
-            // else {
-            //     fight();
-            // }
-
-            
-        } // big if end
-
-    // if player chooses to fight, then fight
-   // else if (promptFight === "fight" || promptFight === "FIGHT") { // big else if start
-        // remove enemy's health by subtracting the amount set in playerInfo.attack
-
     
 
     // Subtract the value of `playerInfo.attack` from the value of `enemy.health` and use that result to update the value in the `enemy.health` variable
@@ -113,6 +131,7 @@ var fight = function(enemy) {
     }
 
 } // end of while loop
+    }
 
 }; // end of fight function
 
