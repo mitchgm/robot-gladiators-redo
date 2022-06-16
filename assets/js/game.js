@@ -29,7 +29,7 @@ var randomNumber = function(min, max) {
     var value = Math.floor(Math.random() * (max - min + 1) + min);
 
     return value;
-}
+};
 // math floor makes the number round down, math random gives us a decimal numnber. Then multiplies by 21 and adds 40 to give each roboto a random health number at minimum of 40. Maximum of 60.
 
 var fightOrSkip = function() {
